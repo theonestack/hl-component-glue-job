@@ -1,0 +1,11 @@
+test_metadata:
+  type: config
+  name: iam
+  description: add policy iam role
+
+iam_policy:
+  s3-read:
+    action:
+    - s3:GetObject
+    resource:
+    - arn:aws:s3:::mybucket/*

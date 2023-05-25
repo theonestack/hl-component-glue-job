@@ -21,6 +21,7 @@ CloudFormation do
   default_max_concurrent_runs = glue_job_defaults.fetch('max_concurrent_runs', nil)
   default_max_retries= glue_job_defaults.fetch('max_retries', nil)
   default_allocated_capacity = glue_job_defaults.fetch('allocated_capacity', nil)
+  default_glue_version = glue_job_defaults.fetch('glue_version', nil)
   default_pylibs = glue_job_defaults.fetch('pylibs', nil)
 
   glue_jobs = external_parameters.fetch(:glue_jobs, {})
@@ -37,11 +38,16 @@ CloudFormation do
     max_retries = job.fetch('max_retries', default_max_retries)
     allocated_capacity = job.fetch('allocated_capacity', default_allocated_capacity)
     max_concurrent_runs = job.fetch('max_concurrent_runs', default_max_concurrent_runs)
+    glue_version = job.fetch('glue_version', default_glue_version)
 
     Glue_Job(job_resource_name) do
       Name FnSub("${EnvironmentName}-#{job_name}")
       Description FnSub(description)
       Role Ref(:GlueServiceRole)
+
+      unless glue_version.nil?
+        GlueVersion glue_version
+      end
 
       unless max_retries.nil?
         MaxRetries max_retries

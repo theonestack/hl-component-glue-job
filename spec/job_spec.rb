@@ -49,6 +49,10 @@ describe 'compiled component glue-job' do
           expect(resource["Properties"]["Role"]).to eq({"Ref"=>"GlueServiceRole"})
       end
       
+      it "to have property GlueVersion" do
+          expect(resource["Properties"]["GlueVersion"]).to eq(3)
+      end
+      
       it "to have property MaxRetries" do
           expect(resource["Properties"]["MaxRetries"]).to eq(0)
       end
@@ -100,6 +104,84 @@ describe 'compiled component glue-job' do
       
       it "to have property Actions" do
           expect(resource["Properties"]["Actions"]).to eq([{"JobName"=>{"Fn::Sub"=>"${EnvironmentName}-job_name"}}])
+      end
+      
+    end
+    
+    context "Overrideglueversionjob" do
+      let(:resource) { template["Resources"]["Overrideglueversionjob"] }
+
+      it "is of type AWS::Glue::Job" do
+          expect(resource["Type"]).to eq("AWS::Glue::Job")
+      end
+      
+      it "to have property Name" do
+          expect(resource["Properties"]["Name"]).to eq({"Fn::Sub"=>"${EnvironmentName}-override_glue_version_job"})
+      end
+      
+      it "to have property Description" do
+          expect(resource["Properties"]["Description"]).to eq({"Fn::Sub"=>"example job"})
+      end
+      
+      it "to have property Role" do
+          expect(resource["Properties"]["Role"]).to eq({"Ref"=>"GlueServiceRole"})
+      end
+      
+      it "to have property GlueVersion" do
+          expect(resource["Properties"]["GlueVersion"]).to eq(4)
+      end
+      
+      it "to have property MaxRetries" do
+          expect(resource["Properties"]["MaxRetries"]).to eq(0)
+      end
+      
+      it "to have property AllocatedCapacity" do
+          expect(resource["Properties"]["AllocatedCapacity"]).to eq(2)
+      end
+      
+      it "to have property ExecutionProperty" do
+          expect(resource["Properties"]["ExecutionProperty"]).to eq({"MaxConcurrentRuns"=>1})
+      end
+      
+      it "to have property Connections" do
+          expect(resource["Properties"]["Connections"]).to eq({"Connections"=>[{"Fn::Sub"=>"GlueConnection"}]})
+      end
+      
+      it "to have property DefaultArguments" do
+          expect(resource["Properties"]["DefaultArguments"]).to eq({"--extra-py-files"=>{"Fn::Sub"=>"s3://bucket-name/pylibs.zip"}})
+      end
+      
+      it "to have property Command" do
+          expect(resource["Properties"]["Command"]).to eq({"Name"=>"main", "ScriptLocation"=>{"Fn::Sub"=>"s3://bucket-name/scripts/main.py"}})
+      end
+      
+    end
+    
+    context "OverrideglueversionjobTrigger" do
+      let(:resource) { template["Resources"]["OverrideglueversionjobTrigger"] }
+
+      it "is of type AWS::Glue::Trigger" do
+          expect(resource["Type"]).to eq("AWS::Glue::Trigger")
+      end
+      
+      it "to have property Name" do
+          expect(resource["Properties"]["Name"]).to eq({"Fn::Sub"=>"${EnvironmentName}-override_glue_version_job-trigger"})
+      end
+      
+      it "to have property Type" do
+          expect(resource["Properties"]["Type"]).to eq("SCHEDULED")
+      end
+      
+      it "to have property Description" do
+          expect(resource["Properties"]["Description"]).to eq("example job")
+      end
+      
+      it "to have property Schedule" do
+          expect(resource["Properties"]["Schedule"]).to eq("cron(01 19 * * ? *)")
+      end
+      
+      it "to have property Actions" do
+          expect(resource["Properties"]["Actions"]).to eq([{"JobName"=>{"Fn::Sub"=>"${EnvironmentName}-override_glue_version_job"}}])
       end
       
     end

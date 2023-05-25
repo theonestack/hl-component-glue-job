@@ -9,6 +9,7 @@ test_parameters:
 glue_job_defaults:
   max_concurrent_runs: 1
   max_retries: 0
+  glue_version: 3
   allocated_capacity: 5
   pylibs: s3://bucket-name/pylibs.zip
 
@@ -22,6 +23,20 @@ glue_jobs:
   job_name:
     description: example job
     allocated_capacity: 2
+    default_args:
+      --target-database: dbname
+      --target-schema: dbschema
+      --s3-input-path: s3://bucket-name/data
+    connections:
+    - GlueConnection
+    command:
+      name: main
+      script: s3://bucket-name/scripts/main.py
+    schedule: cron(01 19 * * ? *)
+  override_glue_version_job:
+    description: example job
+    allocated_capacity: 2
+    glue_version: 4
     default_args:
       --target-database: dbname
       --target-schema: dbschema

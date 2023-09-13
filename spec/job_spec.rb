@@ -70,7 +70,7 @@ describe 'compiled component glue-job' do
       end
       
       it "to have property DefaultArguments" do
-          expect(resource["Properties"]["DefaultArguments"]).to eq({"--extra-py-files"=>{"Fn::Sub"=>"s3://bucket-name/pylibs.zip"}})
+          expect(resource["Properties"]["DefaultArguments"]).to eq({"--target-database"=>{"Fn::Sub"=>"dbname"}, "--target-schema"=>{"Fn::Sub"=>"dbschema"}, "--s3-input-path"=>{"Fn::Sub"=>"s3://bucket-name/data"}, "--extra-py-files"=>{"Fn::Sub"=>"s3://bucket-name/pylibs.zip"}})
       end
       
       it "to have property Command" do
@@ -148,7 +148,7 @@ describe 'compiled component glue-job' do
       end
       
       it "to have property DefaultArguments" do
-          expect(resource["Properties"]["DefaultArguments"]).to eq({"--extra-py-files"=>{"Fn::Sub"=>"s3://bucket-name/pylibs.zip"}})
+          expect(resource["Properties"]["DefaultArguments"]).to eq({"--target-database"=>{"Fn::Sub"=>"dbname"}, "--target-schema"=>{"Fn::Sub"=>"dbschema"}, "--s3-input-path"=>{"Fn::Sub"=>"s3://bucket-name/data"}, "--extra-py-files"=>{"Fn::Sub"=>"s3://bucket-name/pylibs.zip"}})
       end
       
       it "to have property Command" do

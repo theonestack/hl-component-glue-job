@@ -30,7 +30,7 @@ CloudFormation do
     job_resource_name = job_name.capitalize.gsub(/[^0-9A-Za-z]/, '')
 
     default_args = glue_job_default_args.dup
-    default_args.merge!(job.fetch(:default_args, {}))
+    default_args.merge!(job.fetch("default_args", {}))
 
     pylibs = job.fetch('pylibs', default_pylibs)
     default_args[:"--extra-py-files"] = pylibs unless pylibs.nil?

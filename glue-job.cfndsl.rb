@@ -84,6 +84,7 @@ CloudFormation do
         Condition :ScheduleEnabled
         Name FnSub("${EnvironmentName}-#{job_name}-trigger")
         Type 'SCHEDULED'
+        StartOnCreation true
         Description description
         Schedule job['schedule']
         Actions [{

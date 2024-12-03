@@ -57,8 +57,8 @@ describe 'compiled component glue-job' do
           expect(resource["Properties"]["MaxRetries"]).to eq(0)
       end
       
-      it "to have property AllocatedCapacity" do
-          expect(resource["Properties"]["AllocatedCapacity"]).to eq(2)
+      it "to have property MaxCapacity" do
+          expect(resource["Properties"]["MaxCapacity"]).to eq(2)
       end
       
       it "to have property ExecutionProperty" do
@@ -92,6 +92,10 @@ describe 'compiled component glue-job' do
       
       it "to have property Type" do
           expect(resource["Properties"]["Type"]).to eq("SCHEDULED")
+      end
+      
+      it "to have property StartOnCreation" do
+          expect(resource["Properties"]["StartOnCreation"]).to eq(true)
       end
       
       it "to have property Description" do
@@ -135,8 +139,8 @@ describe 'compiled component glue-job' do
           expect(resource["Properties"]["MaxRetries"]).to eq(0)
       end
       
-      it "to have property AllocatedCapacity" do
-          expect(resource["Properties"]["AllocatedCapacity"]).to eq(2)
+      it "to have property MaxCapacity" do
+          expect(resource["Properties"]["MaxCapacity"]).to eq(2)
       end
       
       it "to have property ExecutionProperty" do
@@ -170,6 +174,10 @@ describe 'compiled component glue-job' do
       
       it "to have property Type" do
           expect(resource["Properties"]["Type"]).to eq("SCHEDULED")
+      end
+      
+      it "to have property StartOnCreation" do
+          expect(resource["Properties"]["StartOnCreation"]).to eq(true)
       end
       
       it "to have property Description" do

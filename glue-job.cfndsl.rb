@@ -54,7 +54,7 @@ CloudFormation do
       end
       
       unless maximum_capacity.nil?
-        MaximumCapacity maximum_capacity
+        MaxCapacity maximum_capacity
       end
       
       unless max_concurrent_runs.nil?

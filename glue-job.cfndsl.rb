@@ -23,6 +23,8 @@ CloudFormation do
   default_allocated_capacity = glue_job_defaults.fetch('allocated_capacity', nil)
   default_maximum_capacity = glue_job_defaults.fetch('maximum_capacity', nil)
   default_glue_version = glue_job_defaults.fetch('glue_version', nil)
+  default_worker_type = glue_job_defaults.fetch('worker_type', nil)
+  default_number_of_workers = glue_job_defaults.fetch('number_of_workers', nil)
   default_pylibs = glue_job_defaults.fetch('pylibs', nil)
 
   glue_jobs = external_parameters.fetch(:glue_jobs, {})
@@ -41,6 +43,8 @@ CloudFormation do
     maximum_capacity = job.fetch('maximum_capacity', default_maximum_capacity)
     max_concurrent_runs = job.fetch('max_concurrent_runs', default_max_concurrent_runs)
     glue_version = job.fetch('glue_version', default_glue_version)
+    worker_type = glue_job_defaults.fetch('worker_type', default_worker_type)
+    number_of_workers = glue_job_defaults.fetch('number_of_workers', default_number_of_workers)
 
     Glue_Job(job_resource_name) do
       Name FnSub("${EnvironmentName}-#{job_name}")
@@ -61,6 +65,14 @@ CloudFormation do
       
       unless maximum_capacity.nil?
         MaxCapacity maximum_capacity
+      end
+
+      unless worker_type.nil?
+        WorkerType worker_type
+      end
+
+      unless number_of_workers.nil?
+        NumberOfWorkers number_of_workers
       end
       
       unless max_concurrent_runs.nil?

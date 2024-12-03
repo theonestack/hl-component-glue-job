@@ -20,7 +20,7 @@ CloudFormation do
   # load job defaults
   default_max_concurrent_runs = glue_job_defaults.fetch('max_concurrent_runs', nil)
   default_max_retries= glue_job_defaults.fetch('max_retries', nil)
-  default_allocated_capacity = glue_job_defaults.fetch('allocated_capacity', nil)
+  default_maximum_capacity = glue_job_defaults.fetch('maximum_capacity', nil)
   default_glue_version = glue_job_defaults.fetch('glue_version', nil)
   default_pylibs = glue_job_defaults.fetch('pylibs', nil)
 
@@ -36,7 +36,7 @@ CloudFormation do
     default_args[:"--extra-py-files"] = pylibs unless pylibs.nil?
 
     max_retries = job.fetch('max_retries', default_max_retries)
-    allocated_capacity = job.fetch('allocated_capacity', default_allocated_capacity)
+    maximum_capacity = job.fetch('maximum_capacity', default_maximum_capacity)
     max_concurrent_runs = job.fetch('max_concurrent_runs', default_max_concurrent_runs)
     glue_version = job.fetch('glue_version', default_glue_version)
 
@@ -53,8 +53,8 @@ CloudFormation do
         MaxRetries max_retries
       end
       
-      unless allocated_capacity.nil?
-        AllocatedCapacity allocated_capacity
+      unless maximum_capacity.nil?
+        MaximumCapacity maximum_capacity
       end
       
       unless max_concurrent_runs.nil?
